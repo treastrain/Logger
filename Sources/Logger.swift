@@ -8,7 +8,7 @@
 import Foundation
 
 public enum Logger {
-    public typealias Category = String
+    public typealias Category = AnyHashable
     
     public static func configure(bundleIdentifier: String = Bundle.main.bundleIdentifier!) {
         guard Self.bundleIdentifier == nil else {
@@ -22,7 +22,7 @@ public enum Logger {
         if let logger = loggers[category] {
             return logger
         } else {
-            let logger = os.Logger(subsystem: bundleIdentifier, category: category)
+            let logger = os.Logger(subsystem: bundleIdentifier, category: category.description)
             loggers[category] = logger
             return logger
         }
